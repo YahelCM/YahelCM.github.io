@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QUIRICU SHOES - Compra y Venta de Zapatos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header>
+    <h1>QUIRICU SHOES</h1>
+    <p>Fino Señores</p>
+  </header>
+
+  <section class="container" id="comprar">
+    <div class="product">
+      <img src="clasico.jpg" alt="Zapato 1">
+      <h3>Zapato Clásico</h3>
+      <p>$899 MXN</p>
+      <button>Comprar</button>
+    </div>
+    <div class="product">
+      <img src="deportivo.jpg" alt="Zapato 2">
+      <h3>Tenis Deportivo</h3>
+      <p>$1,200 MXN</p>
+      <button>Comprar</button>
+    </div>
+    <div class="product">
+      <img src="botin.jpg" alt="Zapato 3">
+      <h3>Botín de Cuero</h3>
+      <p>$1,500 MXN</p>
+      <button>Comprar</button>
+    </div>
+    <div class="product">
+      <img src="casual.jpg" alt="Zapato 4">
+      <h3>Zapato Casual</h3>
+      <p>$750 MXN</p>
+      <button>Comprar</button>
+    </div>
+    <div class="product">
+      <img src="sandalia.jpg" alt="Zapato 5">
+      <h3>Sandalia de Piel</h3>
+      <p>$650 MXN</p>
+      <button>Comprar</button>
+    </div>
+    <div class="product">
+      <img src="urbano.jpg" alt="Zapato 6">
+      <h3>Zapato Urbano</h3>
+      <p>$980 MXN</p>
+      <button>Comprar</button>
+    </div>
+    <div class="product">
+      <img src="bota_montaña.jpg" alt="Zapato 7">
+      <h3>Bota de Montaña</h3>
+      <p>$1,700 MXN</p>
+      <button>Comprar</button>
+    </div>
+    <div class="product">
+      <img src="mocasin.jpg" alt="Zapato 8">
+      <h3>Mocasín Elegante</h3>
+      <p>$1,050 MXN</p>
+      <button>Comprar</button>
+    </div>
+  </section>
+
+  <footer id="contacto">
+    <p>Contacto: contacto@zapahombre.com | Tel: 55 1234 5678</p>
+    <p>&copy; 2025 QUIRICU SHOES</p>
+  </footer>
+  <section id="carrito" class="container">
+    <h2>Carrito de Compras</h2>
+    <ul id="lista-carrito"></ul>
+    <p id="total">Total: $0 MXN</p>
+  </section>
+  <script>
+    const botones = document.querySelectorAll(".product button");
+    const listaCarrito = document.getElementById("lista-carrito");
+    const total = document.getElementById("total");
+    let suma = 0;
+  
+    function actualizarTotal() {
+      const precios = [...listaCarrito.querySelectorAll("li")].map(li => {
+        return parseInt(li.getAttribute("data-precio"));
+      });
+      suma = precios.reduce((acc, val) => acc + val, 0);
+      total.textContent = `Total: $${suma} MXN`;
+    }
+  
+    botones.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const producto = btn.parentElement;
+        const nombre = producto.querySelector("h3").textContent;
+        const precioTexto = producto.querySelector("p").textContent;
+        const precio = parseInt(precioTexto.replace(/[^0-9]/g, ''));
+  
+        const li = document.createElement("li");
+        li.textContent = `${nombre} - $${precio} MXN`;
+        li.setAttribute("data-precio", precio);
+  
+        const eliminarBtn = document.createElement("button");
+        eliminarBtn.textContent = "Eliminar";
+        eliminarBtn.classList.add("eliminar");
+        eliminarBtn.addEventListener("click", () => {
+          li.remove();
+          actualizarTotal();
+        });
+  
+        li.appendChild(eliminarBtn);
+        listaCarrito.appendChild(li);
+  
+        actualizarTotal();
+      });
+    });
+  </script>
+  
+  
+</body>
+</html>
